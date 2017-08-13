@@ -1,0 +1,52 @@
+﻿1. Alert Dialog
+private void xuLyXoa(int vitri){
+	AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+	alertDialog.setTitle("Thông Báo !");
+	alertDialog.setIcon(R.mipmap.ic_launcher);
+	alertDialog.setMessage("Bạn có muốn xóa không?");
+	alertDialog.setPositiveButton("Có", new OnClick...){
+		array.remove(vitri);
+		adapter.notifyDataSetChanged();
+	}
+	alertDialog.setNegativeButton("Không", new OnClick...){
+		...
+	}
+};
+
+2. Dialog Custom
+Res -> Layout -> Layout Resource File -> dialog_custom.xml
+	Created From Login (EditText editTextUsername,EditText editTextPassword,Button btnYes,Button btnNo);
+
+activity_main.xml
+	TextView txtLogin = findViewById(R.id...);
+	txtLogin.setOnClickListener(new OnClick...){
+
+}
+private void DialogLogin(){
+	Dialog dialog = new Dialog(this);
+	dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+	dialog.setContentView(R.layout.dialog_custom);
+	dialog.setTitle("Thông báo");
+	dialog.setCanceledOnTouchOutside(false);
+	EditText edtUsername = (EditText) dialog.findViewById(R.id.editTextUsername)
+	EditText edtPassword = (EditText) dialog.findViewById(R.id.editTextPassword)
+	Button btnYes = (Button) dialog.findViewById(R.id.btnYes);
+	Button btnNo = (Button) dialog.findViewById(R.id.btnNo);
+	
+	btnYes.setOnClickListener(new OnClick...){
+		String username = edtUsername.getText().toString().trim();
+		String password = edtPassword.getText().toString().trim();
+		if(username.equal("Ha") && password.equal("Minato"))
+		{
+			Toast.makeText(...);
+		}else{
+			Toast.makeText(...);
+		}
+	}
+
+	btnNo.setOnClickListener(new OnClick...){
+		//dialog.cancel();
+		dialog.dismiss();
+	}
+	dialog.show();
+}

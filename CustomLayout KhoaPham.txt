@@ -1,0 +1,64 @@
+﻿1. Creates a new Java Class -> SinhVien (Getter - Setter - Constructor)
+2. Creates a new XML Layout file -> Design Layout of Custom (item.xml)
+3. Creates a new SinhVienAdapter
+SinhVienAdapter extends BaseAdapter
+private Context context;
+private int layout;
+private List<SinhVien> sinhvienList;
+-> extends implement methods (getCount, getItem, getItemId, getView)
+-> Generate -> Choose 3 Parameter of Private
+getCount() -> return sinhvienList.size();
+getView() -> LayoutInflater inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+-> Cast to 'android.view.LayoutInflater'
+view = inflater.inflate(layout,null);
+// Ánh Xạ View
+TextView txtName= (TextView ) view.findViewById(R.id.txtName);
+TextView txtPhoneNumber= (TextView ) view.findViewById(R.id.txtPhoneNumber);
+ImageView btnCall= (ImageView) view.findViewById(R.id.btnCall);
+// Gán giá trị
+SinhVien sinhvien = sinhvienList.get(i);
+txtName.setText(sinhvien.getName());
+txtPhoneNumber.setText(sinhvien.getPhoneNumber());
+btnCall.setImageResource(sinhvien.getHinh());
+return view;
+4. MainActivity
+ListView lvSinhVien;
+ArrayList<SinhVien> arraySinhVien;
+SinhVienAdapter adapter;
+AddControls();
+-> lvSinhVien = findViewById
+arraySinhVien = new ArrayList<>();
+arraySinhVien.add(new SinhVien("Ten","0972794074",R.drawable.));
+arraySinhVien.add(new SinhVien("Ten","0972794074",R.drawable.));
+arraySinhVien.add(new SinhVien("Ten","0972794074",R.drawable.));
+
+adapter = new SinhVienAdapter(this, R.layout.item, arraySinhvien);
+lvSinhVien.setAdapter(adapter);
+
+==================================================================
+Listview nâng cao - ViewHolder
+(getCount, getItem, getItemId, getView) + private class ViewHolder{
+ImageView imgHinh;
+TextView txtName;
+TextView txtPhoneNumber;
+}
+->getView -> ViewHolder holder;
+if(view == null){
+LayoutInflater inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+-> Cast to 'android.view.LayoutInflater'
+view = inflater.inflate(layout,null);
+holder = new ViewHolder();
+
+// Ánh Xạ View
+holder.txtName= (TextView ) view.findViewById(R.id.txtName);
+holder.txtPhoneNumber= (TextView ) view.findViewById(R.id.txtPhoneNumber);
+holder.btnCall= (ImageView) view.findViewById(R.id.btnCall);
+view.setTag(holder);
+}else{
+holder = view.getTag(); Cast to '........................'
+}
+SinhVien sinhvien = sinhvienList.get(i);
+holder.setText(sinhvien.getName());
+holder.setText(sinhvien.getPhoneNumber());
+holder.setImageResource(sinhvien.getHinh());
+return view;

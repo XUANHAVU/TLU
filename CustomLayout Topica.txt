@@ -1,0 +1,56 @@
+﻿1. Res -> Layout -> Creates a new XML Layout file. -> Design Layout of Custom (item.xml)
+Res -> drawable (image = png)
+2. Java -> Creates a new Package (vn.edu.topica.ListViewNangCao) in MainActivity
+Example: Creates a new Package (vn.edu.topica.Model) -> New Java Class (Contact)
+public class Contact implement Serializable{
+     private int ID;
+     private String Name;
+     private String PhoneNumber;
+Generate: Getter & Setter (Ctrl + A), Constructor (Ctrl + A), Constructor (No Parameter)
+}
+3. Java -> Creates a new Package (vn.edu.topica.Adapter) -> New Java Class (ContactAdapter)
+public class ContactAdapter extends ArrayAdapter<Contact>{
+// Alt + Enter in EXTENDS // Creates Constructor -> ArrayAdapter(context:Context, resource:int, object:List<T>)
+
+     Activity context;                  Màn hình sử dụng layout này
+     int resource;                        Layout cho từng dòng muốn hiển thị (theo khách hàng) (resource = item)
+     List<Contact> objects;       Danh sách nguồn dữ liệu muốn hiển thị
+                         Edit Parameter:
+public ContactAdapter(Context context, int resource, List<Contact> objects) => (Activity context, int resource, List<Contact> objects){
+     super(context,resource,objects);
+     this.context = context;
+     this.resource = resource;
+     this.objects = obiects;
+}
+->getView(position, convertView, parent){
+LayoutInflater inflater=this.context.getLayoutInflater();
+View row= inflater.inflate(this.resource,null);               (this.resource = item.xml)
+TextView txtName= (TextView ) row.findViewById(R.id.txtName);
+TextView txtPhoneNumber= (TextView ) row.findViewById(R.id.txtPhoneNumber);
+ImageButton btnCall= (ImageButton) row.findViewById(R.id.btnCall);
+ImageButton btnContact ...
+
+Contact contact=this.objects.get(position);                            -> (Trả về danh bạ hiện tại muốn vẽ)
+txtName.setText(contact.getName());
+txtPhoneNumber.setText(contact.getPhoneNumber());
+
+return row; (LUU Y)
+}
+}
+4. MainActivity
+addControls();
+addEvents();
+=========================================
++ addControls
+lvContact=(ListView) findViewById(R.id.lvContact);
+dsContact= new ArrayList<>();
+dsContact.add(new Contact(1,"Vu Xuan Ha","0972794074"));
+dsContact.add(new Contact(2,"Vu Xuan Haa","0972794075"));
+dsContact.add(new Contact(3,"Vu Xuan Haaa","0972794076"));
+contactAdapter= new ContactAdapter(MainActivity.this,R.layout.item,dsContact);
+lvContact.setAdapter(contactAdapter);
+5. ContactAdapter (---3---)
+btnDetail.setOnClickListener(new View.OnClickListener(){
+xuLyDetail();
+})
+Toast.maketext(this.context," " + contact.getName(),LENGTH_LONG).show();

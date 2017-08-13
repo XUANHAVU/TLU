@@ -1,0 +1,22 @@
+﻿MH1:
+Intent intent=new Intent(MainActivity.this,ManHinh2.class);
+intent.putExtra("A",Integer.parseInt(txtA.getText().toString()));
+intent.putExtra("B",Integer.parseInt(txtB.getText().toString()));
+startActivityForResult(intent,100);
+MH2:
+int a,b;
+intent=getIntent();
+a=intent.getIntExtra("A",-1);
+B=intent.getIntExtra("B",-1);
+AddEvents();   XuLy();...min(a,b);
+int ucln=1;
+for(int i=min; i>=1;i--) if(a%i==0 & b%i==0) ucln=i; break;
+-> intent.putExtra("UCLN",ucln);
+setResult(99;intent);
+finish();
+MH1:
+onActivityResult(requestCode,resultCode,Intent data)
+if(requestCode == 100 & resultCode==99) {
+int KETQUA=data.getIntExtra("UCLN",1);
+txtKetqua.setText("UCLN= "+KETQUA);
+}

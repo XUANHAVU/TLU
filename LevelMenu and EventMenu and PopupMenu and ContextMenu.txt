@@ -1,0 +1,121 @@
+﻿1. Res -> New -> Directory -> menu -> New Resource File -> menu.xml
+- Menu Level 1
+<item android:title="Setting"
+	android:icon="@android:drawable/ic_menu_add"
+	app:showAsAction="always" // Đưa icon ra màn hình thay vì ở trong dấu 3 chấm (hiển thị chữ)
+	android:id="@+id/menuSettings"/>
+<item android:title="Share"
+	android:id="@+id/menuShare"
+	android:orderInCategory="1"/>
+<item android:title="Search"
+	android:id="@+id/menuSearch"
+	android:orderInCategory="2"/>
+<item android:title="Exit"
+	android:id="@+id/menuExit"
+	android:orderInCategory="3"/>
+
+- Menu Level 2
+<item android:title="Contact"
+	android:orderInCategory="4"
+	<menu>
+		<item android:title="Email"
+			android:id="@+id/menuEmail"/>
+		<item android:title="Phone"
+			android:id="@+id/menuPhone"/>
+	</menu>
+</item>
+1.1. MainActivity.java
+onCreateOptionsMenu{
+getMenuInflater().inflate(R.menu.menu,menu);
+}
+
+2.Menu Sự kiện chọn item
+- MainActivity.java
+onOptionsItemSelected{
+switch(item.getItemId()){
+case R.id.menuSettings:
+	Toast.makeText(this,"Hello",Toast.LENGTH_SHORT).show();
+	break;
+case R.id.menuEmail:
+	Toast.makeText(this,"Hello",Toast.LENGTH_SHORT).show();
+	break;
+case R.id.menuPhone:
+	Toast.makeText(this,"Hello",Toast.LENGTH_SHORT).show();
+	break;
+case R.id.menuSearch:
+	Toast.makeText(this,"Hello",Toast.LENGTH_SHORT).show();
+	break;
+case R.id.menuShare:
+	Toast.makeText(this,"Hello",Toast.LENGTH_SHORT).show();
+	break;
+}
+}
+3.Popup Menu
+Res -> New -> Directory -> menu -> New Resource File -> menu_popup.xml
+<item android:title="Thêm"
+	android:id="@+id/menuThem"/>
+<item android:title="Sửa"
+	android:id="@+id/menuSua"/>
+<item android:title="Xóa"
+	android:id="@+id/menuXoa"/>
+
+- Add Button in activity_main.xml
+- MainActivity.java
+AddControls() -> btnMenu -> findViewById ...
+
+- Created Function
+private void ShowMenu(){
+	PopupMenu popupMenu = new PopupMenu(this,btnMenu);
+	popupMenu.getMenuInflater().inflate(R.menu.menu_popup, popupMenu.getMenu());
+	popupMenu.setOnMenuItemCickListener(new OnMenuItemCickListener){
+	switch(menuItem.getItemId()){
+		case R.id.menuThem:
+		Toast.makeText(this,"Hello",Toast.LENGTH_SHORT).show();
+		break;
+		case R.id.menuSua:
+		Toast.makeText(this,"Hello",Toast.LENGTH_SHORT).show();
+		break;
+		case R.id.menuXoa:
+		Toast.makeText(this,"Hello",Toast.LENGTH_SHORT).show();
+		break;
+}
+}
+	popupMenu.show();
+}
+AddEvents() -> btnMenu.setOnClick ... -> ShowMenu();
+4. Context Menu
+Res -> New -> Directory -> menu -> New Resource File -> menu_context.xml
+<item android:title="Màu Vàng"
+	android:id="@+id/menuVang"/>
+<item android:title="Màu Xanh"
+	android:id="@+id/menuXanh"/>
+<item android:title="Màu Đỏ"
+	android:id="@+id/menuDo"/>
+
+- Add Button in activity_main.xml
+- MainActivity.java
+Button btnChooseColor;
+ConstraintLayout manHinh;
+
+{
+AddControls() -> btnChooseColor, manHinh -> findViewById ...
+registerForContextMenu(btnChooseColor);
+}
+
+onCreateContextMenu{
+getMenuInflater().inflate(R.id.menu_context,menu);
+menu.setHeaderTitle("Chọn màu");
+menu.setHeaderIcon(R.mipmap.ic_launcher);
+}
+onContextItemSelected{
+switch(item.getItemId())
+	case R.id.menuDo:
+		manHinh.setBackgroundColor(Color.RED);
+		break;
+	case R.id.menuVang:
+		manHinh.setBackgroundColor(Color.YELLOW);
+		break;
+	case R.id.menuXanh:
+		manHinh.setBackgroundColor(Color.BLUE);
+		break;
+}
