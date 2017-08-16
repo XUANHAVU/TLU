@@ -1,0 +1,43 @@
+﻿1.
+private class LoadImageInternet extends AsyncTask<String, Void, Bitmap>{
+	Bitmap bitmap = null;
+	doInBackground(String... strings){
+		try{
+			URL url = new URL(strings[0]);
+			InputStream inputStream = url.openConnection().getInputStream();
+			// Add 'catch' clause(s)
+			bitmap = BitmapFactory.decodeStream(inputStream);
+		}catch(){...}
+	}
+	return bitmap;
+}
+btnLoad.setOnClick...{
+	new LoadImageInternet().execute("link-image");
+}
+Manifest.xml
+<user-permission android:name="android.permission.INTERNET"/>
+
+2. Read Content Internet Website
+private class ReadContentInternet AsyncTask<String, Void, String{
+	doInBackground(String... strings){
+		StringBuilder stringBuilder = new StringBuilder(); 
+		try{
+			URL url = new URL(strings[0]);
+			URLConnection urlConnection = url.openConnection();
+			InputStream inputStream = urlConnection().getInputStream();
+			InputStreamReader inputStreamReader = new InputStreamReader (inputStream);
+			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+			String line = "";
+			while(line = bufferedReader .readLine() != null){
+				stringBuilder.append(line + "\n");
+			}
+			BufferedReader .close();
+		}catch(){...}
+	}
+	return stringBuilder.toString();
+}
+onCreate{
+	new ReadContentInternet().execute("http://khoapham.vn");
+}
+Manifest.xml
+<user-permission android:name="android.permission.INTERNET"/>

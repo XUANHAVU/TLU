@@ -1,0 +1,23 @@
+﻿1. JSON Object
+private class ReadJSONObject extends Asynctask<String, Void, String>{
+	StringBuilder stringBuilder = new StringBuilder(); 
+	doInBackground(String... strings){
+		URL url = new URL(strings[0]);
+		InputStreamReader inputStreamReader = new InputStreamReader(url.openConnection().getInputStream());
+		BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+		while(line = bufferedReader .readLine() != null){
+			stringBuilder.append(line + "\n");
+		}
+		bufferedReader .close();
+	}
+	return stringBuilder.toString();
+}
+onCreate{
+	new ReadJSONObject().execute("http://khoapham.vn/KhoaPhamTrainning/json/tien/demo1.json");
+}
+
+onPostExecute(String s){
+	JSONObject object = new JSONObject(s); -> try - catch
+	String MonHoc = object.getString("monhoc");
+	String ChoHoc= object.getString("chohoc");
+}
