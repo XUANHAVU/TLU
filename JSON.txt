@@ -11,13 +11,136 @@ private class ReadJSONObject extends Asynctask<String, Void, String>{
 		bufferedReader .close();
 	}
 	return stringBuilder.toString();
+
+	onPostExecute(String s){
+	JSONObject object = new JSONObject(s); -> try - catch
+	String MonHoc = object.getString("monhoc");
+	String ChoHoc= object.getString("chohoc");
+	}
 }
 onCreate{
 	new ReadJSONObject().execute("http://khoapham.vn/KhoaPhamTrainning/json/tien/demo1.json");
 }
+Manifest.xml
+<user-permission android:name="android.permission.INTERNET"/>
 
-onPostExecute(String s){
+2. JSON Array
+private class ReadJSONArray extends Asynctask<String, Void, String>{
+	StringBuilder stringBuilder = new StringBuilder(); 
+	doInBackground(String... strings){
+		URL url = new URL(strings[0]);
+		InputStreamReader inputStreamReader = new InputStreamReader(url.openConnection().getInputStream());
+		BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+		while(line = bufferedReader .readLine() != null){
+			stringBuilder.append(line + "\n");
+		}
+		bufferedReader .close();
+	}
+	return stringBuilder.toString();
+	
+	onPostExecute(String s){
 	JSONObject object = new JSONObject(s); -> try - catch
-	String MonHoc = object.getString("monhoc");
-	String ChoHoc= object.getString("chohoc");
+	JSONArray array = object.getJSONArray("danhsach");
+	for(int i=0;i<array.length();i++){
+		JSONObject objectKhoaHoc = array.getJSONObject(i);
+		String ten= objectKhoaHoc.getString("khoahoc");
+		Toast.makeText(...);
+		}
+	}
+}
+onCreate{
+	new ReadJSONArray().execute("http://khoapham.vn/KhoaPhamTrainning/json/tien/demo2.json");
+}
+Manifest.xml
+<user-permission android:name="android.permission.INTERNET"/>
+
+3. JSON Language
+
+// ImageButton btnVN,btnEN;
+// TextView txtInfomation;
+// String noidung = "";
+private class ReadJSON extends Asynctask<String, Void, String>{
+	StringBuilder stringBuilder = new StringBuilder(); 
+	doInBackground(String... strings){
+		URL url = new URL(strings[0]);
+		InputStreamReader inputStreamReader = new InputStreamReader(url.openConnection().getInputStream());
+		BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+		while(line = bufferedReader .readLine() != null){
+			stringBuilder.append(line + "\n");
+		}
+		bufferedReader .close();
+	}
+	return stringBuilder.toString();
+
+	onPostExecute(String s){
+	noidung = s;
+	}
+}
+onCreate{
+	new ReadJSON().execute("http://khoapham.vn/KhoaPhamTrainning/json/tien/demo3.json");
+}
+private void ReadJSONLanguage(String ngonngu){
+	try{
+		JSONObject object = new JSONObject(noidung); -> try - catch
+		JSONObject objectLanguage = object.getJSONOject("language");
+
+		JSONObject objectVN = objectLanguage .getJSONOject("ngonngu");
+		String name = oobjectVN.getString("name");
+		String address = objectVN.getString("address");
+		String course = objectVN.getString("course");
+		String course1 = objectVN.getString("course1");
+		String course2 = objectVN.getString("course2");
+		txtInfomation.setText(name + "\n" + address + "n" + course + "n"+ course1 + "n" + course2 + "n");
+		}catch(){
+	}
+}
+btnVN.setOnClick(...){
+	new ReadJSONLanguage("vn");
+}
+btnEN.setOnClick(...){
+	new ReadJSONLanguage("en");
+}
+
+Manifest.xml
+<user-permission android:name="android.permission.INTERNET"/>
+
+4. JSON Array Object
+// ListView lvKhoaHoc;
+// ArrayList<String> arrCourse;
+// ArrayAdapter adapter;
+
+
+Manifest.xml
+<user-permission android:name="android.permission.INTERNET"/>
+
+onCreate{
+	arrCourse = new ArrayList<>();
+	adapter = new ArrayAdapter(MainActivity.this,android.R.layout.sinple_list_item1,arrCourse);
+	lvKhoaHoc.setAdapter(adapter);
+	new ReadJSON().execute("http://khoapham.vn/KhoaPhamTrainning/json/tien/demo4.json");
+}
+
+private class ReadJSON extends Asynctask<String, Void, String>{
+	StringBuilder stringBuilder = new StringBuilder(); 
+	doInBackground(String... strings){
+		URL url = new URL(strings[0]);
+		InputStreamReader inputStreamReader = new InputStreamReader(url.openConnection().getInputStream());
+		BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+		while(line = bufferedReader .readLine() != null){
+			stringBuilder.append(line + "\n");
+		}
+		bufferedReader .close();
+	}
+	return stringBuilder.toString();
+
+	onPostExecute(String s){
+		JSONArray array = new JSONArray(s);
+		for(int i=0;i<array.length();i++){
+			JSONObject object = array.getJSONObject(i);
+			String khoahoc = object.getString("khoahoc");
+			String hocphi = object.getString("hocphi");
+			arrCourse.add(khoahoc + " - " hocphi);
+		}
+		adapter.notifyDataSetChanged();
+	}
 }

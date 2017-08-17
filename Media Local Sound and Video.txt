@@ -1,0 +1,17 @@
+1. Media Local Sound
+res -> mp3 -> ngaymaiemdi.mp3
+
+MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.mp3.ngaymaiemdi);
+mediaPlayer.start();
+
+2. Media Local Video
+res -> video -> ngaymaiemdi.mp4
+VideoView videoView;
+videoView.setVideoURI("android.resource://" + getPackageName() + "/" + R.video.ngaymaiemdi);
+videoView.start();
+
+MediaController = mediaController = new MediaController(MainActivity.this);
+mediaController.setMediaPlayer(videoView);
+videoView.setMediaController(mediaController);
+
+-> Support : Android Media Support

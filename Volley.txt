@@ -1,0 +1,114 @@
+1. Volley String Request
+
+Gradle Scripts -> build.gradle (Module app)
+dependencies {
+    ...
+    compile 'com.android.volley:volley:1.0.0'
+} -> Sync Now
+
+onCreate{
+    final TextView mTextView = (TextView) findViewById(R.id.text);
+
+// Instantiate the RequestQueue.
+    RequestQueue queue = Volley.newRequestQueue(this);
+    String url ="http://www.google.com";
+
+// Request a string response from the provided URL.
+    StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        new Response.Listener<String>() {
+    @Override
+    public void onResponse(String response) {
+        // Display the first 500 characters of the response string.
+        mTextView.setText("Response is: "+ response.substring(0,500));
+    }
+}, new Response.ErrorListener() {
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        mTextView.setText("That didn't work!" + error.toString());
+    }
+});
+// Add the request to the RequestQueue.
+queue.add(stringRequest);
+}
+
+Manifest.xml
+     <user-permission android:name="android.permission.INTERNET"/>
+
+
+2. Volley Json Object Request
+
+Gradle Scripts -> build.gradle (Module app)
+dependencies {
+    ...
+    compile 'com.android.volley:volley:1.0.0'
+} -> Sync Now
+
+onCreate{
+    final TextView mTextView = (TextView) findViewById(R.id.text);
+
+// Instantiate the RequestQueue.
+    RequestQueue requestQueue = Volley.newRequestQueue(this);
+    String url ="http://www.google.com";
+
+// Request a Object response from the provided URL.
+    JSONObjectRequest jsonObjectRequest  = new JSONObjectRequest(Request.Method.GET, url,null
+	,new Response.Listener<JSONObject>() {
+    @Override
+    public void onResponse(JSONObject response) {
+        String monhoc = response.getString("monhoc");
+        mTextView.setText("Response is: "+ monhoc);
+    }
+}, new Response.ErrorListener() {
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        mTextView.setText("That didn't work!" + error.toString());
+    }
+});
+);
+// Add the request to the RequestQueue.
+requestQueue.add(jsonObjectRequest);
+}
+
+Manifest.xml
+     <user-permission android:name="android.permission.INTERNET"/>
+
+3.  Volley Json Array Request
+
+Gradle Scripts -> build.gradle (Module app)
+dependencies {
+    ...
+    compile 'com.android.volley:volley:1.0.0'
+} -> Sync Now
+
+onCreate{
+    final TextView mTextView = (TextView) findViewById(R.id.text);
+
+// Instantiate the RequestQueue.
+    RequestQueue requestQueue = Volley.newRequestQueue(this);
+    String url ="http://www.google.com";
+
+// Request a Object response from the provided URL.
+    JSONArrayRequest jsonArrayRequest  = new JSONArrayRequest(Request.Method.GET, url,null
+	,new Response.Listener<JSONArray>() {
+    @Override
+    public void onResponse(JSONArray response) {
+        for(int i=0;i<response.length();i++){
+	JSONObject object = response.getJSONObject(i);
+	String khoahoc = object.getString("khoahoc");
+	String hocphi = object.getString("hocphi");
+        }
+        mTextView.setText("Response is: "+ khoahoc + "-" + hocphi);
+    }
+}, new Response.ErrorListener() {
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        mTextView.setText("That didn't work!" + error.toString());
+    }
+});
+);
+// Add the request to the RequestQueue.
+requestQueue.add(jsonArrayRequest);
+}
+
+Manifest.xml
+     <user-permission android:name="android.permission.INTERNET"/>
